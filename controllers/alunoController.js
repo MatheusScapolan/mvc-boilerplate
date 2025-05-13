@@ -1,8 +1,10 @@
 const Aluno = require('../models/aluno');
+const Curso = require('../models/curso');
 
 exports.index = async (req, res) => {
-  const alunos = await Aluno.findAll();
-  res.render('alunos/index', { alunos });
+  const alunos = await Aluno.findAllComCurso();
+  const cursos = await Curso.findAll();
+  res.render('alunos/index', { alunos, cursos });
 };
 
 exports.store = async (req, res) => {
@@ -20,4 +22,10 @@ exports.destroy = async (req, res) => {
   const { id } = req.params;
   await Aluno.delete(id);
   res.redirect('/alunos');
+};
+
+exports.byCurso = async (req, res) => {
+  const { curso_id } = req.params;
+  const alunos = await Aluno.findByCurso(curso_id);
+  res.json(alunos);
 };
