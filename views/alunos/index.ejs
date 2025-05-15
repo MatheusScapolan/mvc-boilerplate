@@ -29,6 +29,21 @@
     <button type="submit">Adicionar Curso</button>
   </form>
 
+  <!-- Edição de cursos existentes -->
+  <h2>Editar cursos existentes</h2>
+  <% cursos.forEach(curso => { %>
+    <form action="/cursos/edit/<%= curso.id %>" method="POST" style="display:inline;">
+      <input name="nome" value="<%= curso.nome %>" required>
+      <button type="submit">✏️</button>
+    </form>
+
+    <!-- Formulário para deletar um curso -->
+    <form action="/cursos/delete/<%= curso.id %>" method="POST" style="display:inline;">
+      <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">🗑️</button>
+    </form>
+    <br>
+  <% }) %>
+
   <hr>
 
   <ul>
@@ -48,4 +63,5 @@
   </ul>
 </body>
 </html>
+
 

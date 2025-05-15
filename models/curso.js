@@ -10,5 +10,16 @@ module.exports = {
     const query = 'INSERT INTO curso (nome) VALUES ($1) RETURNING *';
     const result = await db.query(query, [nome]);
     return result.rows[0];
+  },
+
+  async update(id, nome) {
+    const query = 'UPDATE curso SET nome = $1 WHERE id = $2 RETURNING *';
+    const result = await db.query(query, [nome, id]);
+    return result.rows[0];
+  },
+
+  async delete(id) {
+    const result = await db.query('DELETE FROM curso WHERE id = $1 RETURNING *', [id]);
+    return result.rows[0]; // Retorna o curso deletado, ou null se não existir
   }
 };

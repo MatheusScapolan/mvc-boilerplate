@@ -64,3 +64,8 @@ JOIN alunos a ON m.aluno_id = a.id
 JOIN cursos c ON m.curso_id = c.id
 ORDER BY a.nome;
 
+CREATE TABLE professor (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL
+);
