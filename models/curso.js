@@ -19,7 +19,6 @@ module.exports = {
   },
 
   async delete(id) {
-    const result = await db.query('DELETE FROM curso WHERE id = $1 RETURNING *', [id]);
-    return result.rows[0]; // Retorna o curso deletado, ou null se não existir
+    await db.query('DELETE FROM curso WHERE id = $1', [id]);
   }
 };

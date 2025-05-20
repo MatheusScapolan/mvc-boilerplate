@@ -1,27 +1,22 @@
-const db = require('../config/db');
+const Curso = require('../models/curso');
 
-const Curso = {
-  // Cria um novo curso
-  async create(nome) {
-    const query = 'INSERT INTO curso (nome) VALUES ($1) RETURNING *';
-    const result = await db.query(query, [nome]);
-    return result.rows[0];
-  },
-
-  // Atualiza o nome de um curso
-  async update(id, nome) {
-    const query = 'UPDATE curso SET nome = $1 WHERE id = $2 RETURNING *';
-    const result = await db.query(query, [nome, id]);
-    return result.rows[0];
-  },
-
-  // Deleta um curso pelo ID
-  async delete(id) {
-    const query = 'DELETE FROM curso WHERE id = $1';
-    await db.query(query, [id]);
-  }
+exports.create = async (req, res) => {
+  const { nome } = req.body;
+  await Curso.create(nome);
+  res.redirect('/alunos');
 };
 
-module.exports = Curso;
+exports.update = async (req, res) => {
+  const { id } = req.params;
+  const { nome } = req.body;
+  await Curso.update(id, nome);
+  res.redirect('/alunos');
+};
+
+exports.delete = async (req, res) => {
+  const { id } = req.params;
+  await Curso.delete(id);
+  res.redirect('/alunos');
+};
 
 
